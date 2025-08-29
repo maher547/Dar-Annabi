@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دار العنّابي – سيدي بوسعيد</title>
+    
+    <!-- روابط الخطوط -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- أيقونة الخط -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* المتغيرات العامة */
+        :root {
+            --primary-color: #0c2340; /* أزرق داكن */
+            --secondary-color: #d4af37; /* ذهبي */
+            --light-color: #ffffff; /* أبيض */
+            --text-color: #333333; /* رمادي داكن للنص */
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Raleway', sans-serif;
+        }
+        
+        /* إعادة تعيين الأنماط */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            color: var(--text-color);
+            line-height: 1.6;
+            background-color: var(--light-color);
+            direction: rtl;
+            text-align: right;
+        }
+        
+        /* أنماط اللغة الإنجليزية والفرنسية والإسبانية */
+        body[dir="ltr"] {
+            direction: ltr;
+            text-align: left;
+        }
+        
+        body[dir="ltr"] .lang-menu {
+            left: 20px;
+            right: auto;
+        }
+        
+        body[dir="ltr"] .gallery-item {
+            float: left;
+        }
+        
+        body[dir="ltr"] .contact-info i {
+            margin-right: 0;
+            margin-left: 10px;
+        }
+        
+        body[dir="ltr"] .side-nav {
+            left: 0;
+            right: auto;
+        }
+        
+        body[dir="ltr"] .nav-tooltip {
+            left: 70px;
+            right: auto;
+            transform: translateY(-50%);
+        }
+        
+        /* قائمة اللغات */
+        .lang-menu {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 30px;
+            padding: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+        }
+        
+        .lang-menu button {
+            background: none;
+            border: none;
+            padding: 8px 12px;
+            margin: 0 2px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-family: var(--font-body);
+            font-weight: 500;
+            color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+        
+        .lang-menu button.active {
+            background-color: var(--secondary-color);
+            color: var(--light-color);
+        }
+        
+        .lang-menu button:hover {
+            background-color: var(--primary-color);
+            color: var(--light-color);
+        }
+        
+        /* شريط التنقل الجانبي */
+        .side-nav {
+            position: fixed;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            z-index: 999;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 50px;
+            padding: 15px 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .nav-item {
+            position: relative;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .nav-item i {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+        
+        .nav-item:hover {
+            background-color: var(--primary-color);
+        }
+        
+        .nav-item:hover i {
+            color: var(--light-color);
+        }
+        
+        .nav-item.active {
+            background-color: var(--secondary-color);
+        }
+        
+        .nav-item.active i {
+            color: var(--light-color);
+        }
+        
+        .nav-tooltip {
+            position: absolute;
+            top: 50%;
+            right: 70px;
+            background-color: var(--primary-color);
+            color: var(--light-color);
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-50%);
+            transition: all 0.3s ease;
+            z-index: -1;
+        }
+        
+        .nav-tooltip::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -5px;
+            transform: translateY(-50%);
+            border-width: 5px;
+            border-style: solid;
+            border-color: transparent transparent transparent var(--primary-color);
+        }
+        
+        .nav-item:hover .nav-tooltip {
+            opacity: 1;
+            visibility: visible;
+            right: 60px;
+        }
+        
+        /* قسم الهيرو */
+        .hero {
+            height: 100vh;
+            background-image: linear-gradient(rgba(12, 35, 64, 0.7), rgba(12, 35, 64, 0.7)), url('https://pbs.twimg.com/media/CW-l64AWQAAkhmd.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--light-color);
+            position: relative;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            padding: 0 20px;
+        }
+        
+        .hero h1 {
+            font-family: var(--font-heading);
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: var(--light-color);
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+        
+        .hero .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--secondary-color);
+            color: var(--light-color);
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .hero .btn:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+        
+        /* القسم التعريفي */
+        .about {
+            padding: 100px 0;
+            background-color: var(--light-color);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: "";
+            display: block;
+            width: 80px;
+            height: 3px;
+            background-color: var(--secondary-color);
+            margin: 20px auto 0;
+        }
+        
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 50px;
+        }
+        
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .about-text p {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+        
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        /* قسم المعرض */
+        .gallery {
+            padding: 100px 0;
+            background-color: #f8f8f8;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .gallery-item {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            height: 250px;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(12, 35, 64, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+        
+        .gallery-overlay i {
+            color: var(--light-color);
+            font-size: 2rem;
+        }
+        
+        /* قسم الخريطة */
+        .location {
+            padding: 100px 0;
+            background-color: var(--light-color);
+        }
+        
+        .map-container {
+            height: 450px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        /* قسم الاتصال */
+        .contact {
+            padding: 100px 0;
+            background-color: #f8f8f8;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 30px;
+        }
+        
+        .contact-item {
+            flex: 1;
+            min-width: 250px;
+            background-color: var(--light-color);
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .contact-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .contact-item i {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+        }
+        
+        .contact-item h3 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+        
+        .contact-item p {
+            font-size: 1.1rem;
+            color: var(--text-color);
+        }
+        
+        /* التذييل */
+        footer {
+            background-color: var(--primary-color);
+            color: var(--light-color);
+            padding: 50px 0 30px;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .footer-logo {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--light-color);
+        }
+        
+        .footer-logo span {
+            color: var(--secondary-color);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--light-color);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        /* تصميم متجاوب */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .contact-info {
+                flex-direction: column;
+            }
+            
+            .side-nav {
+                flex-direction: row;
+                top: auto;
+                bottom: 20px;
+                right: 50%;
+                left: auto;
+                transform: translateX(50%);
+                padding: 10px 15px;
+                border-radius: 30px;
+                width: auto;
+                gap: 15px;
+            }
+            
+            .nav-tooltip {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .lang-menu {
+                flex-wrap: wrap;
+                max-width: 150px;
+            }
+            
+            .lang-menu button {
+                font-size: 0.8rem;
+                padding: 6px 8px;
+            }
+            
+            .side-nav {
+                padding: 8px 12px;
+                gap: 10px;
+            }
+            
+            .nav-item {
+                width: 35px;
+                height: 35px;
+            }
+            
+            .nav-item i {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- قائمة اللغات -->
+    <div class="lang-menu">
+        <button class="active" data-lang="ar">العربية</button>
+        <button data-lang="en">English</button>
+        <button data-lang="fr">Français</button>
+        <button data-lang="es">Español</button>
+    </div>
+
+    <!-- شريط التنقل الجانبي -->
+    <nav class="side-nav">
+        <div class="nav-item active" data-section="hero">
+            <i class="fas fa-home"></i>
+            <span class="nav-tooltip">الرئيسية</span>
+        </div>
+        <div class="nav-item" data-section="about">
+            <i class="fas fa-info-circle"></i>
+            <span class="nav-tooltip">عن الدار</span>
+        </div>
+        <div class="nav-item" data-section="gallery">
+            <i class="fas fa-images"></i>
+            <span class="nav-tooltip">معرض الصور</span>
+        </div>
+        <div class="nav-item" data-section="location">
+            <i class="fas fa-map-marker-alt"></i>
+            <span class="nav-tooltip">الموقع</span>
+        </div>
+        <div class="nav-item" data-section="contact">
+            <i class="fas fa-envelope"></i>
+            <span class="nav-tooltip">اتصل بنا</span>
+        </div>
+    </nav>
+
+    <!-- قسم الهيرو -->
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">دار العنّابي – سيدي بوسعيد</h1>
+            <p class="hero-subtitle">تراث أصيل في قلب تونس العريقة</p>
+            <a href="#about" class="btn">اكتشف المزيد</a>
+        </div>
+    </section>
+
+    <!-- القسم التعريفي -->
+    <section class="about" id="about">
+        <div class="container">
+            <h2 class="section-title">عن دار العنّابي</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>دار العنّابي هي تحفة معمارية فريدة تقع في قلب سيدي بوسعيد، البلدة الساحرة المطلة على خليج تونس. تجمع الدار بين الأصالة التاريخية والرفاهية العصرية لتقدم تجربة استثنائية لزوارها.</p>
+                    <p>تم بناء الدار في أوائل القرن العشرين، وتتميز بتصميمها المعماري المتأثر بالطراز الأندلسي والعثماني، مع تفاصيل فنية رائعة وألوان هادئة تنسجم مع البيئة المحيطة.</p>
+                    <p>تعتبر دار العنّابي اليوم واحدة من أبرز المعالم الثقافية في تونس، وتستضيف العديد من الفعاليات الفنية والثقافية على مدار العام.</p>
+                </div>
+                <div class="about-image">
+                    <img src="https://carthagemagazine.com/wp-content/uploads/2020/09/Dar-El-Annabi-1024x764.jpg" alt="دار العنّابي">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم المعرض -->
+    <section class="gallery" id="gallery">
+        <div class="container">
+            <h2 class="section-title">معرض الصور</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhO7AeZnrIHiJmtJ4OdXxAT7qj_1IivKUivT8mSYzUEdk02mTTBRobOXB7FzRy28EdAngt4G6j5g737PcsKG3Kw-6Yq41dNSlr4IGs67cC_n_LKfybvHa0toapl7mj5FkuaRFkIWL8PP4BkjdTjCFcQunuGkCRnliUdcrAH4HT34omW-UqlIJxmHU76drq2/s1024/hero.jpg" alt="صورة 1">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus"></i>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEho4uiiASZQK1K-kAj-y-oIJa28rp0TP7j0nPiyioCJVnO24b5inRTyL7sVPtRvh1GKz5vW22I8-KmwWUrTdCtou-RdrbBokluofP4bEGppP9Gu6tccxWxTK6cAuK5IF17wmvbSGC0yNxh-SRJRPoGHAbq85rbomN5_Tcz51K7ej1a13ibIsFGZhWXdQgbF/s1000/img88.jpg" alt="صورة 2">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus"></i>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjqG00-hQxgMn8__cfDCCiN4Lh0p9onPLdW8Uq4c5rF1IHUfrKNhHIWrFfoT5HFTlNfRG9Pya7pVY_yj40J0DbHjaSpGe4EY0SvEC5arQaXXUWAKwA22bhrG4DQ3Ot3Vw98VEAAT1MAnqamxnVDgNY7QmCN3gA31uXUtN9Alw-DFOiM-iSkTJ_zYTE-_VJO/s1333/img66.jpg" alt="صورة 3">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus"></i>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj6P1ZqZp-RFsubTSizmwQ6yLdHuL2ph9U721N3-ECEQrWSDx61ilb3xKRt73p8sZZXRuA_ukHxPN_OR7jlifi1633pnDCnFnJmil8UzdKwlw4Vv6QagWmnZxHM5MYHzPpnWtYmeOFHtm0ibx1Jqr7rnJ9bEpigvGr-uyeJd9tMyyoaAw3kW5GVWneDjBMZ/s1000/img55.jpg" alt="صورة 4">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus"></i>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjGjocQlLzdh7rVk5fhGKqskzL6qVXHq0XwiQBI1k60bOyn81xVQ_Smw1_n70cnBlOfDRRSjdWoGhyphenhyphen8gbXpiE3IYOQkSHoSf6IJapNrg93ZDLhJWt1QV8rjISHli0n_usDq_qFgMe3gVWwutgiQ_mKiYbJsx0EWpM_MGaLOSImUDiBikzGoAeWUksXAA3Gh/s1280/img1.jpg" alt="صورة 5">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus"></i>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiQBaLzfIyvcjm5hYtNIitAbgC7coo5B3OUK1RLK2EQC6OwXxWimP1yS4VqrJRfxSVw1hPrq9uq_Tu2Nn4QR6xo6v1d63NB29fk0sI-8ayWIRy1CaS4NESJkuM4xCdynjlpP9fiY62KfYnxbrVZMBtMilkXY9_ApHA8PuzQnFcc30UmRA0cdYG90Z45REDM/s385/by%20maher%20aouadi%20img11.png" alt="صورة 6">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus"></i>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhStqHz5ZuEftIkHWQzn02pWkaDXm0OSvHkC-P-hDaE_IC4dIC7zlVxNlm75ILiFiiShoU2Op2hG0hqOF4IvzqaWXhIZFPjQogzPmjyupsU5-RNLbGEUrJ8rrewxNH8__gp6HTLIUl4ZXj3SaOO4cRYA8-GZogKcjs6qSkp1-cmD5mmoFr8Wn2PTajyGwaa/s1000/img22.jpg" alt="صورة 7">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus"></i>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhgDHWEe3AiT-AuBY0rTBFNpt_7xLd__oEHAGExJHnSWEoq_alzhQRfiI4VmE4Exyxu3LrqJ4rDBxLrbZOKzaoydvF-_N0OKXITwlE5mVtUplGu79qiuZloy0uibbP3H_VHPFYxaWN3VE0HdeceX3bHpeJHNIo0ypA4JC-V-z71FfePIxgynmVYOTsGWLnj/s419/by%20maher%20aouadi%20img13.png" alt="صورة 8">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus"></i>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg53KEYFxUPFkM8bcX2s1Pj4j1KoVmv0DM23u6paAzIMPSdaRv0ESpBuv2eInapgFRHOcX6yt3iCa7cy0XTqk5u1MtlFDkyT8QrzyBx8eNzdEGSqb-slfYeam_D-34vSysRI7BJxULhoMbC_W5NEiSzjTTM6u2tWh-PJ7WFDGCRMRZO3ecL1jEUHYiveWEP/s420/by%20maher%20aouadi%20img14.png" alt="صورة 9">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم الخريطة -->
+    <section class="location" id="location">
+        <div class="container">
+            <h2 class="section-title">موقعنا</h2>
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m23!1m8!1m3!1d6383.619819763501!2d10.347422!3d36.8709686!3m2!1i1024!2i768!4f13.1!4m12!3e6!4m4!1s0x12e2b49e771743cf%3A0x9d30f7f3e2d2beb6!3m2!1d36.8709686!2d10.347422!4m5!1s0x12e2b49e771743cf%3A0x9d30f7f3e2d2beb6!2sDar%20El%20Annabi%2048%20Rue%20Hedi%20Zarrouk%20Site%20arch%C3%A9ologique%20de%20Carthage%20Tunisia!3m2!1d36.8709686!2d10.347422!5e0!3m2!1sar!2stn!4v1756134225074!5m2!1sar!2stn" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم الاتصال -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">معلومات الاتصال</h2>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <h3>الهاتف</h3>
+                    <p>+216 XX XXX XXX</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <h3>البريد الإلكتروني</h3>
+                    <p>info@darannabi.tn</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3>العنوان</h3>
+                    <p>48 Rue Hedi Zarrouk, Carthage</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- التذييل -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">دار <span>العنّابي</span></div>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+                <div class="copyright">
+                    <p> &copy; 2025 دار العنّابي. جميع الحقوق محفوظة. <a href="https://aouadigroup.tn/">Aouadi Group</a></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // بيانات الترجمة
+        const translations = {
+            ar: {
+                heroTitle: "دار العنّابي – سيدي بوسعيد",
+                heroSubtitle: "تراث أصيل في قلب تونس العريقة",
+                heroButton: "اكتشف المزيد",
+                aboutTitle: "عن دار العنّابي",
+                aboutText1: "دار العنّابي هي تحفة معمارية فريدة تقع في قلب سيدي بوسعيد، البلدة الساحرة المطلة على خليج تونس. تجمع الدار بين الأصالة التاريخية والرفاهية العصرية لتقدم تجربة استثنائية لزوارها.",
+                aboutText2: "تم بناء الدار في أوائل القرن العشرين، وتتميز بتصميمها المعماري المتأثر بالطراز الأندلسي والعثماني، مع تفاصيل فنية رائعة وألوان هادئة تنسجم مع البيئة المحيطة.",
+                aboutText3: "تعتبر دار العنّابي اليوم واحدة من أبرز المعالم الثقافية في تونس، وتستضيف العديد من الفعاليات الفنية والثقافية على مدار العام.",
+                galleryTitle: "معرض الصور",
+                locationTitle: "موقعنا",
+                contactTitle: "معلومات الاتصال",
+                contactPhone: "الهاتف",
+                contactEmail: "البريد الإلكتروني",
+                contactAddress: "العنوان",
+                phonePlaceholder: "+216 XX XXX XXX",
+                emailPlaceholder: "info@darannabi.tn",
+                addressPlaceholder: "48 شارع الهادي زروق، قرطاج",
+                footerCopyright: "© 2025 دار العنّابي. جميع الحقوق محفوظة. By Aouadi Group",
+                navHome: "الرئيسية",
+                navAbout: "عن الدار",
+                navGallery: "معرض الصور",
+                navLocation: "الموقع",
+                navContact: "اتصل بنا"
+            },
+            en: {
+                heroTitle: "Dar Annabi – Sidi Bou Said",
+                heroSubtitle: "Authentic heritage in the heart of historic Tunis",
+                heroButton: "Discover More",
+                aboutTitle: "About Dar Annabi",
+                aboutText1: "Dar Annabi is a unique architectural masterpiece located in the heart of Sidi Bou Said, the charming town overlooking the Gulf of Tunis. The house combines historical authenticity with modern luxury to offer an exceptional experience to its visitors.",
+                aboutText2: "The house was built in the early 20th century and is distinguished by its architectural design influenced by Andalusian and Ottoman styles, with wonderful artistic details and soothing colors that harmonize with the surrounding environment.",
+                aboutText3: "Today, Dar Annabi is considered one of the most prominent cultural landmarks in Tunisia, hosting many artistic and cultural events throughout the year.",
+                galleryTitle: "Photo Gallery",
+                locationTitle: "Our Location",
+                contactTitle: "Contact Information",
+                contactPhone: "Phone",
+                contactEmail: "Email",
+                contactAddress: "Address",
+                phonePlaceholder: "+216 XX XXX XXX",
+                emailPlaceholder: "info@darannabi.tn",
+                addressPlaceholder: "48_Rue Hedi Zarrouk, Carthage",
+                footerCopyright: "© 2025 Dar Annabi. All rights reserved. By Aouadi Group",
+                navHome: "Home",
+                navAbout: "About",
+                navGallery: "Gallery",
+                navLocation: "Location",
+                navContact: "Contact"
+            },
+            fr: {
+                heroTitle: "Dar Annabi – Sidi Bou Saïd",
+                heroSubtitle: "Héritage authentique au cœur de la Tunisie historique",
+                heroButton: "Découvrir plus",
+                aboutTitle: "À propos de Dar Annabi",
+                aboutText1: "Dar Annabi est un chef-d'œuvre architectural unique situé au cœur de Sidi Bou Saïd, la charmante ville surplombant le golfe de Tunis. La maison allie l'authenticité historique au luxe moderne pour offrir une expérience exceptionnelle à ses visiteurs.",
+                aboutText2: "La maison a été construite au début du XXe siècle et se distingue par son design architectural influencé par les styles andalous et ottomans, avec de merveilleux détails artistiques et des couleurs apaisantes qui s'harmonisent avec l'environnement environnant.",
+                aboutText3: "Aujourd'hui, Dar Annabi est considéré comme l'un des monuments culturels les plus remarquables de Tunisie, accueillant de nombreux événements artistiques et culturels tout au long de l'année.",
+                galleryTitle: "Galerie de photos",
+                locationTitle: "Notre emplacement",
+                contactTitle: "Coordonnées",
+                contactPhone: "Téléphone",
+                contactEmail: "E-mail",
+                contactAddress: "Adresse",
+                phonePlaceholder: "+216 XX XXX XXX",
+                emailPlaceholder: "info@darannabi.tn",
+                addressPlaceholder: "48 Rue Hedi Zarrouk, Carthage",
+                footerCopyright: "© 2025 Dar Annabi. Tous droits réservés. By Aouadi Group",
+                navHome: "Accueil",
+                navAbout: "À propos",
+                navGallery: "Galerie",
+                navLocation: "Emplacement",
+                navContact: "Contact"
+            },
+            es: {
+                heroTitle: "Dar Annabi – Sidi Bou Said",
+                heroSubtitle: "Herencia auténtica en el corazón de la Túnez histórica",
+                heroButton: "Descubrir más",
+                aboutTitle: "Acerca de Dar Annabi",
+                aboutText1: "Dar Annabi es una obra maestra arquitectónica única ubicada en el corazón de Sidi Bou Said, el encantador pueblo con vistas al Golfo de Túnez. La casa combina la autenticidad histórica con el lujo moderno para ofrecer una experiencia excepcional a sus visitantes.",
+                aboutText2: "La casa fue construida a principios del siglo XX y se distingue por su diseño arquitectónico influenciado por los estilos andalusí y otomano, con maravillosos detalles artísticos y colores relajantes que armonizan con el entorno circundante.",
+                aboutText3: "Hoy en día, Dar Annabi se considera uno de los puntos de referencia culturales más destacados de Túnez, albergando numerosos eventos artísticos y culturales durante todo el año.",
+                galleryTitle: "Galería de fotos",
+                locationTitle: "Nuestra ubicación",
+                contactTitle: "Información de contacto",
+                contactPhone: "Teléfono",
+                contactEmail: "Correo electrónico",
+                contactAddress: "Dirección",
+                phonePlaceholder: "+216 XX XXX XXX",
+                emailPlaceholder: "info@darannabi.tn",
+                addressPlaceholder: "48 Rue Hedi Zarrouk, Cartago",
+                footerCopyright: "© 2025 Dar Annabi. Todos los derechos reservados. By Aouadi Group",
+                navHome: "Inicio",
+                navAbout: "Acerca de",
+                navGallery: "Galería",
+                navLocation: "Ubicación",
+                navContact: "Contacto"
+            }
+        };
+
+        // الحصول على عناصر DOM
+        const langButtons = document.querySelectorAll('.lang-menu button');
+        const html = document.documentElement;
+        const heroTitle = document.querySelector('.hero-title');
+        const heroSubtitle = document.querySelector('.hero-subtitle');
+        const heroButton = document.querySelector('.hero .btn');
+        const aboutTitle = document.querySelector('.about .section-title');
+        const aboutTexts = document.querySelectorAll('.about-text p');
+        const galleryTitle = document.querySelector('.gallery .section-title');
+        const locationTitle = document.querySelector('.location .section-title');
+        const contactTitle = document.querySelector('.contact .section-title');
+        const contactLabels = document.querySelectorAll('.contact-item h3');
+        const contactValues = document.querySelectorAll('.contact-item p');
+        const copyright = document.querySelector('.copyright p');
+        const navTooltips = document.querySelectorAll('.nav-tooltip');
+        const navItems = document.querySelectorAll('.nav-item');
+
+        // تغيير اللغة
+        function changeLanguage(lang) {
+            // تحديث اتجاه الصفحة ولغة HTML
+            if (lang === 'ar') {
+                html.setAttribute('dir', 'rtl');
+                html.setAttribute('lang', 'ar');
+            } else {
+                html.setAttribute('dir', 'ltr');
+                html.setAttribute('lang', lang);
+            }
+
+            // تحديث النصوص
+            const t = translations[lang];
+            heroTitle.textContent = t.heroTitle;
+            heroSubtitle.textContent = t.heroSubtitle;
+            heroButton.textContent = t.heroButton;
+            aboutTitle.textContent = t.aboutTitle;
+            aboutTexts[0].textContent = t.aboutText1;
+            aboutTexts[1].textContent = t.aboutText2;
+            aboutTexts[2].textContent = t.aboutText3;
+            galleryTitle.textContent = t.galleryTitle;
+            locationTitle.textContent = t.locationTitle;
+            contactTitle.textContent = t.contactTitle;
+            contactLabels[0].textContent = t.contactPhone;
+            contactLabels[1].textContent = t.contactEmail;
+            contactLabels[2].textContent = t.contactAddress;
+            contactValues[0].textContent = t.phonePlaceholder;
+            contactValues[1].textContent = t.emailPlaceholder;
+            contactValues[2].textContent = t.addressPlaceholder;
+            copyright.textContent = t.footerCopyright;
+            
+            // تحديث نصوص شريط التنقل
+            navTooltips[0].textContent = t.navHome;
+            navTooltips[1].textContent = t.navAbout;
+            navTooltips[2].textContent = t.navGallery;
+            navTooltips[3].textContent = t.navLocation;
+            navTooltips[4].textContent = t.navContact;
+
+            // تحديث الزر النشط
+            langButtons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-lang') === lang) {
+                    btn.classList.add('active');
+                }
+            });
+        }
+
+        // إضافة مستمعي الأحداث لأزرار اللغة
+        langButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const lang = button.getAttribute('data-lang');
+                changeLanguage(lang);
+            });
+        });
+
+        // التمرير السلس للروابط
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // التنقل بين الأقسام باستخدام شريط التنقل الجانبي
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const sectionId = item.getAttribute('data-section');
+                const targetSection = document.getElementById(sectionId);
+                
+                if (targetSection) {
+                    window.scrollTo({
+                        top: targetSection.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // تحديث شريط التنقل عند التمرير
+        window.addEventListener('scroll', () => {
+            const scrollPosition = window.scrollY + 100;
+            
+            // تحديث الحالة النشطة لشريط التنقل
+            navItems.forEach(item => {
+                const sectionId = item.getAttribute('data-section');
+                const section = document.getElementById(sectionId);
+                
+                if (section) {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.offsetHeight;
+                    
+                    if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                        navItems.forEach(navItem => navItem.classList.remove('active'));
+                        item.classList.add('active');
+                    }
+                }
+            });
+            
+            // إظهار/إخفاء قائمة اللغة عند التمرير
+            const langMenu = document.querySelector('.lang-menu');
+            let lastScrollTop = 0;
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+                // التمرير لأسفل
+                langMenu.style.opacity = '0.7';
+            } else {
+                // التمرير لأعلى
+                langMenu.style.opacity = '1';
+            }
+            
+            lastScrollTop = scrollTop;
+        });
+    </script>
+</body>
+</html>
